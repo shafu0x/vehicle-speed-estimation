@@ -1,0 +1,5 @@
+torch==1.6
+torchvision==0.7
+Pillow
+efficientnet-pytorch==0.7.0
+tensorboard

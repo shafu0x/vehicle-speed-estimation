@@ -1,8 +1,19 @@
-# commai-challenge
+# vehicle-speed-estimation
 
-optical flow estimation: https://github.com/SharifElfouly/opical-flow-estimation-with-RAFT
+If you want to know more about this project checkout my [medium post](https://medium.com/p/18b41babda4c/edit) about it.
 
-### TODO
-* Create optical flow from image pairs
-* Train EfficientNet (https://github.com/lukemelas/EfficientNet-PyTorch) on regression
-* Is end2end better?
+![video](vis/pred_label_vis.gif)
+
+
+## Requirements
+```Shell
+pip3 install -r requirements.txt
+```
+
+## How to use
+
+
+
+## Visualize
+
+
