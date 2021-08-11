@@ -804,3 +804,11 @@ Validation: Epoch: [100/100], mean Loss: 0.08037856966257095, last loss:0.073472
 2021-08-11 21:22:55.079030: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
 Loaded pretrained weights for efficientnet-b0
 765 85
+Epoch: [1/100], Step: [100/765], Loss: 57.126258850097656
+Epoch: [1/100], Step: [200/765], Loss: 38.202823638916016
+Epoch: [1/100], Step: [300/765], Loss: 9.994173049926758
+Epoch: [1/100], Step: [400/765], Loss: 5.27348518371582
+Epoch: [1/100], Step: [500/765], Loss: 5.477262020111084
+Epoch: [1/100], Step: [600/765], Loss: 18.74931526184082
+Epoch: [1/100], Step: [700/765], Loss: 7.867389678955078
+Validation: Epoch: [1/100], mean Loss: 2.4025418758392334, last loss:0.7286696434020996
