@@ -18,16 +18,17 @@ from utils.utils import InputPadder
 os.environ['CUDA_VISIBLE_DEVICES'] = '5'
 DEVICE = 'cuda' if torch.cuda.is_available else 'cpu'
 
-images_dir = '/home/ljw/projects/vehicle-speed-estimation/data/test/'
-output_dir = '/data_4T/EV_RAFT/of_kitti/'
-outfig_dir = '/home/ljw/projects/vehicle-speed-estimation/result/vis_kitti/'
-model_path = '/home/ljw/projects/vehicle-speed-estimation/model/raft_models/raft-kitti.pth'
+images_dir = "/data_4T/EV_RAFT/data/train/"
+output_dir = '/data_4T/EV_RAFT/opticalflow/'
+outfig_dir = '/home/ljw/projects/vehicle-speed-estimation/result/vis/'
+model_path = '/home/ljw/projects/vehicle-speed-estimation/model/raft_models/raft-things.pth'
 videos_path = '/home/ljw/projects/vehicle-speed-estimation/speedchallenge/data/'
 
 
 
 def generate_frames(videos_path, images_dir):
-    vidcap = cv2.VideoCapture(videos_path+'test.mp4')  
+    vidcap = cv2.VideoCapture(videos_path+'train.mp4')
+    #vidcap = cv2.VideoCapture(videos_path+'4.hevc')  
 
     frames_rate=vidcap.get(5)
     frame_num = int(vidcap.get(7))
@@ -39,7 +40,7 @@ def generate_frames(videos_path, images_dir):
             pass
         else:
             cv2.imwrite(images_dir+"frame%d.png" % i, image)
-
+        
 
 
 def vis(npy_dir, output_dir):
@@ -79,11 +80,13 @@ def run(args):
     images = list(images_dir.glob('frame*.png'))
 
     with torch.no_grad():
-        images = sorted(images)
+        # Important bug: the img_path need to be sorted!
+        images.sort(key=lambda x: int(x.name[5:-4]))
+        #print(images[16666])
 
-        #for i in tqdm(range(len(images)-1)):
+        for i in tqdm(range(len(images)-1)):
         # run first 200
-        for i in tqdm(range(200)):
+        #for i in tqdm(range(200)):
             im_f1 = str(images[i])
             im_f2 = str(images[i+1])
             

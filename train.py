@@ -12,7 +12,7 @@ import multiprocessing
 from torch.utils.tensorboard import SummaryWriter
 
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '6'
+os.environ['CUDA_VISIBLE_DEVICES'] = '7'
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 v = 0     # model version
@@ -23,8 +23,8 @@ num_c = 1 # number of classes to predict
 # directory with the optical flow images
 of_dir = '/data_4T/EV_RAFT/opticalflow/'
 # labels as txt file
-labels_f = '/home/ljw/projects/vehicle-speed-estimation/speedchallenge/data/train.txt'
-#MODEL_F = '/home/ljw/projects/vehicle-speed-estimation/model/b0.pth'
+labels_f = '/data_4T/EV_RAFT/speedchallenge/data/train.txt'
+model_f = '/home/ljw/projects/vehicle-speed-estimation/model/efnet_b0.pth'
 
 #of = torch.randn(1,2,640,480)  # input shape (1,2,640,480)
 
@@ -63,9 +63,12 @@ train_idx, val_idx = indices[:split], indices[split:]
 sample = ds[3]
 
 
-train_set, val_set = torch.utils.data.random_split(ds,[split,ds_size-split])
-train_dl = DataLoader(train_set, batch_size=16, shuffle=True, num_workers=12)
-val_dl = DataLoader(val_set, batch_size=16, shuffle=False, num_workers=12)
+train_set = torch.utils.data.Subset(ds, train_idx)
+val_set = torch.utils.data.Subset(ds, val_idx)
+
+
+train_dl = DataLoader(train_set, batch_size=24, shuffle=True, num_workers=12)
+val_dl = DataLoader(val_set, batch_size=24, shuffle=False, num_workers=12)
 
 print(len(train_dl), len(val_dl))
 
@@ -123,3 +126,5 @@ for epoch in range(epochs):
                 .format(epoch+1, epochs, sum(val_losses)/len(val_losses), loss.item()))
         #print(f'{epoch}: {sum(val_losses)/len(val_losses)}')
         writer.add_scalar('Validation loss', sum(val_losses)/len(val_losses), global_step=epoch)
+
+torch.save(model, model_f)
