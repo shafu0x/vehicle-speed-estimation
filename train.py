@@ -65,7 +65,7 @@ sample = ds[3]
 
 train_set = torch.utils.data.Subset(ds, train_idx)
 val_set = torch.utils.data.Subset(ds, val_idx)
-
+print(train_set[0][1])
 
 train_dl = DataLoader(train_set, batch_size=24, shuffle=True, num_workers=12)
 val_dl = DataLoader(val_set, batch_size=24, shuffle=False, num_workers=12)
